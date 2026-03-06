@@ -13,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.NumberFormat;
+
 public class MainActivity extends AppCompatActivity
         implements TextView.OnEditorActionListener, View.OnClickListener {
 
@@ -25,7 +27,8 @@ public class MainActivity extends AppCompatActivity
     private TextView totalTextView;
 
 
-
+    private String billAmountString = "";
+    private float tipPercent = .15f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         percentUpButton = findViewById(R.id.btn_percentUp);
         percentDownButton = findViewById(R.id.btn_percentDown);
         tipTextView = findViewById(R.id.tipAmountTextView);
-        totalTextView = findViewById(R.id.lbl_total);
+        totalTextView = findViewById(R.id.totalAmountTextView);
 
         //set the listeners for EditText and Button
         billAmountEditText.setOnEditorActionListener(this);
@@ -56,13 +59,46 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        return false;
+    private void calculateAndDisplay() {
+        //get the bill amount
+       billAmountString = billAmountEditText.getText().toString();
+       float billAmount;
+       if(billAmountString.equals("")){
+           billAmount = 0;
+       } else{
+           billAmount = Float.parseFloat(billAmountString);
+       }
+
+       //Calculate Total
+        float tipAmount = billAmount * tipPercent;
+        float totalAmount = billAmount + tipAmount;
+
+        //Display the results After
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        tipTextView.setText(currency.format(tipAmount));
+        totalTextView.setText(currency.format(totalAmount));
+
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percentTextView.setText(percent.format(tipPercent));
     }
 
     @Override
-    public void onClick(View view) {
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        //Type inside
+        calculateAndDisplay();
+        return false;
+    }
 
+
+    @Override
+    public void onClick(View view) {
+        //Onclick increase tipPercent label
+        if (view.getId() == R.id.btn_percentDown){
+            tipPercent = tipPercent - 0.01f;
+            calculateAndDisplay();
+        } else if (view.getId() == R.id.btn_percentUp){
+            tipPercent = tipPercent +0.01f;
+            calculateAndDisplay();
+        }
     }
 }

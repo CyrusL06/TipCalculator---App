@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -56,6 +57,32 @@ public class MainActivity extends AppCompatActivity
         billAmountEditText.setOnEditorActionListener(this);
         percentDownButton.setOnClickListener(this);
         percentUpButton.setOnClickListener(this);
+
+    }
+
+    //Saving States
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("billAmountString", billAmountString);
+        outState.putFloat("tipPercent",tipPercent );
+
+    }
+
+    //Restore state when layout changes
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+        if (savedInstanceState != null){
+            billAmountString = savedInstanceState.getString("billAmountString", "");
+            tipPercent = savedInstanceState.getFloat("tipPercent",0.15f);
+
+            billAmountEditText.setText(billAmountString);
+            calculateAndDisplay();
+        }
 
     }
 

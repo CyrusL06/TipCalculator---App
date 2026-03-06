@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Tip Calculator</string>
+<!--   label-->
+    <string name="bill_amount_label">Bill Amount</string>
+    <string name="bill_amount"></string>
+
+<!--this resource refers to this text-->
+<!--if you want to write on different language the name same but label different-->
+<!--    string name same but value different-->
+    <string name="tip_percent_label">Percent</string>
+    <string name="tip_percent">15%</string>
+    <string name="increase">+</string>
+    <string name="decrease">-</string>
+
+    <string name="tip_amount_label">Tip</string>
+    <string name="tip_amount">$0.00</string>
+
+    <string name="total_amount_label">Total</string>
+    <string name="total_amount">$0.00</string>
+
+
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    density of picel unit that allows you to show app resolution-->
+    <dimen name="padding">16dp</dimen>
+    <dimen name="button_width">60dp</dimen>
+    <dimen name="button_height">46dp</dimen>
+
+    <dimen name="text_size">20sp</dimen>
+</resources>
